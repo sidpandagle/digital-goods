@@ -16,6 +16,7 @@ interface Purchase {
     title: string;
     description: string | null;
     preview_image_url: string | null;
+    image_urls: string[] | null;
     image_count: number;
     category: string | null;
   };
