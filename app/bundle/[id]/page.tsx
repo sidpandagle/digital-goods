@@ -348,7 +348,7 @@ export default function BundleDetailPage() {
                     <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
                       <Check className="w-4 h-4 text-green-600" strokeWidth={2} />
                     </div>
-                    <span className="font-medium">PDF format for easy viewing</span>
+                    <span className="font-medium">Google Drive links for easy viewing</span>
                   </li>
                   <li className="flex items-center text-gray-700">
                     <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">

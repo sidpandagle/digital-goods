@@ -13,6 +13,15 @@ export const metadata: Metadata = {
   title: "Pixel Forge Studio - Premium Digital Art Bundles",
   description: "Discover and purchase stunning AI-generated digital art bundles. High-quality collections for creatives, designers, and art enthusiasts.",
   keywords: ["AI art", "digital art", "art bundles", "AI-generated", "digital marketplace"],
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
+  openGraph: {
+    title: "Pixel Forge Studio - Premium Digital Art Bundles",
+    description: "Discover and purchase stunning AI-generated digital art bundles.",
+    images: ['/logo.png'],
+  },
 };
 
 export default function RootLayout({

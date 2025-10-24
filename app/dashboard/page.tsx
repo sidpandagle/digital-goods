@@ -367,7 +367,7 @@ export default function DashboardPage() {
               </li>
               <li className="flex items-start gap-4">
                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0">3</div>
-                <span className="pt-1">Click the download button to access your PDF files anytime</span>
+                <span className="pt-1">Click the download button to access your files anytime</span>
               </li>
             </ul>
           </div>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Bundle } from '@/types/database';
 import { createClient } from '@/lib/supabase/server';
 import Header from './components/Header';
@@ -212,9 +213,15 @@ export default async function Home() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="absolute inset-0 gradient-primary rounded-[var(--radius-lg)] blur opacity-40" />
-                  <div className="relative w-10 h-10 rounded-[var(--radius-lg)] gradient-primary flex items-center justify-center shadow-md">
-                    <ImageIcon className="w-6 h-6 text-white" strokeWidth={2} />
+                  <div className="absolute inset-0 gradient-primary rounded-lg blur opacity-40" />
+                  <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md p-1.5">
+                    <Image
+                      src="/logo.png"
+                      alt="Pixel Forge Studio"
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
                 <span className="font-bold text-xl text-[hsl(var(--foreground))]">Pixel Forge Studio</span>

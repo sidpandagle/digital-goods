@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { User, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -79,8 +80,14 @@ function LoginForm() {
       <div className="max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto rounded-2xl gradient-bg flex items-center justify-center shadow-xl mb-4">
-            <User className="w-8 h-8 text-white" strokeWidth={2} />
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-xl mb-4 p-2">
+            <Image
+              src="/logo.png"
+              alt="Pixel Forge Studio"
+              width={48}
+              height={48}
+              className="w-full h-full object-contain"
+            />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Welcome Back

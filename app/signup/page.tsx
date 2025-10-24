@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { UserPlus, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
@@ -49,8 +50,14 @@ export default function SignupPage() {
       <div className="max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto rounded-2xl gradient-bg flex items-center justify-center shadow-xl mb-4">
-            <UserPlus className="w-8 h-8 text-white" strokeWidth={2} />
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-xl mb-4 p-2">
+            <Image
+              src="/logo.png"
+              alt="Pixel Forge Studio"
+              width={48}
+              height={48}
+              className="w-full h-full object-contain"
+            />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Create Account

@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
-import { Image, ShieldCheck, ShoppingBag, LogOut } from 'lucide-react';
+import { ShieldCheck, ShoppingBag, LogOut } from 'lucide-react';
 
 interface UserProfile {
   role: 'customer' | 'admin';
@@ -78,9 +79,15 @@ export default function Header() {
           {/* Logo Section - Enhanced with gradient and animation */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 gradient-primary rounded-[var(--radius-lg)] blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
-              <div className="relative w-11 h-11 rounded-[var(--radius-lg)] gradient-primary flex items-center justify-center shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                <Image className="w-6 h-6 text-white" strokeWidth={2} />
+              <div className="absolute inset-0 gradient-primary rounded-lg blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
+              <div className="relative w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 p-1.5">
+                <Image
+                  src="/logo.png"
+                  alt="Pixel Forge Studio Logo"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
             <div>

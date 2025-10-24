@@ -38,7 +38,11 @@
       "Bash(git add:*)",
       "Bash(del nul)",
       "Bash(rm:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(if not exist public mkdir public)",
+      "Bash(copy assetslogo.png publiclogo.png)",
+      "Bash(xcopy:*)",
+      "Bash(powershell -Command:*)"
     ],
     "deny": [],
     "ask": []
