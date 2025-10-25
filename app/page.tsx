@@ -156,7 +156,7 @@ export default async function Home() {
 
                   {/* Bundle Info - Modern typography and spacing */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-[hsl(var(--foreground))] mb-2 line-clamp-1 group-hover:text-[hsl(var(--primary))] transition-colors">
+                    <h3 className="text-xl font-bold text-[hsl(var(--foreground))] mb-2 group-hover:text-[hsl(var(--primary))] transition-colors">
                       {bundle.title}
                     </h3>
 

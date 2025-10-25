@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Bundle } from '@/types/database';
 import { createClient } from '@/lib/supabase/client';
-import { AlertTriangle, ArrowLeft, Loader2, ShoppingCart, Check, Info, Mail, Image as ImageIcon, Clock, ShieldCheck, ArrowRight, Download, FileText, Palette, Printer, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Loader2, ShoppingCart, Check, Info, Mail, Image as ImageIcon, Clock, ShieldCheck, ArrowRight, Download, FileText, Palette, Printer, ChevronLeft, ChevronRight } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -27,7 +27,6 @@ export default function BundleDetailPage() {
   const [authLoading, setAuthLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<TabType>('description');
-  const [hoveredImage, setHoveredImage] = useState<number | null>(null);
 
   useEffect(() => {
     checkAuth();
@@ -247,53 +246,85 @@ export default function BundleDetailPage() {
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
           {/* Hero Section - Image Carousel + Product Info */}
-          <div className="card-elevated overflow-hidden animate-slide-up">
+          <div className="card-elevated overflow-hidden animate-slide-up !transform-none !shadow-none ">
             <div className="grid lg:grid-cols-2">
               {/* Left: Hero Image Carousel */}
-              <div className="relative bg-[hsl(var(--muted))] flex items-center">
+              <div className="relative bg-[hsl(var(--muted))] flex items-center overflow-hidden">
                 {images.length === 0 ? (
                   <div className="w-full aspect-square flex items-center justify-center">
                     <ImageIcon className="w-32 h-32 text-[hsl(var(--muted-foreground))]/30" strokeWidth={1.5} />
                   </div>
                 ) : (
-                  <div className="relative aspect-square">
-                    <img
-                      src={images[selectedImageIndex]}
-                      alt={`${bundle.title} - Image ${selectedImageIndex + 1}`}
-                      className="w-full h-full object-contain p-8"
-                    />
+                  <div className="flex flex-col w-full">
+                    {/* Main Image Display */}
+                    <div className="relative aspect-square w-full">
+                      <img
+                        src={images[selectedImageIndex]}
+                        alt={`${bundle.title} - Image ${selectedImageIndex + 1}`}
+                        className="w-full h-full object-contain p-8"
+                      />
 
-                    {/* Navigation Arrows */}
-                    {images.length > 1 && (
-                      <>
-                        <button
-                          onClick={() => setSelectedImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 glass-strong p-3 rounded-full shadow-lg transition-all hover:scale-110"
-                          aria-label="Previous image"
-                        >
-                          <ChevronLeft className="w-6 h-6 text-[hsl(var(--foreground))]" strokeWidth={2} />
-                        </button>
-                        <button
-                          onClick={() => setSelectedImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 glass-strong p-3 rounded-full shadow-lg transition-all hover:scale-110"
-                          aria-label="Next image"
-                        >
-                          <ChevronRight className="w-6 h-6 text-[hsl(var(--foreground))]" strokeWidth={2} />
-                        </button>
+                      {/* Navigation Arrows */}
+                      {images.length > 1 && (
+                        <>
+                          <button
+                            onClick={() => setSelectedImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 glass-strong p-3 rounded-full shadow-lg transition-all hover:scale-110"
+                            aria-label="Previous image"
+                          >
+                            <ChevronLeft className="w-6 h-6 text-[hsl(var(--foreground))]" strokeWidth={2} />
+                          </button>
+                          <button
+                            onClick={() => setSelectedImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 glass-strong p-3 rounded-full shadow-lg transition-all hover:scale-110"
+                            aria-label="Next image"
+                          >
+                            <ChevronRight className="w-6 h-6 text-[hsl(var(--foreground))]" strokeWidth={2} />
+                          </button>
 
-                        {/* Image Counter */}
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm">
-                          {selectedImageIndex + 1} / {images.length}
+                          {/* Image Counter */}
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm">
+                            {selectedImageIndex + 1} / {images.length}
+                          </div>
+                        </>
+                      )}
+
+                      {/* Category Badge */}
+                      {bundle.category && (
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1.5 glass-strong text-[hsl(var(--primary))] text-xs font-semibold rounded-full shadow-md backdrop-blur-md">
+                            {bundle.category}
+                          </span>
                         </div>
-                      </>
-                    )}
+                      )}
+                    </div>
 
-                    {/* Category Badge */}
-                    {bundle.category && (
-                      <div className="absolute top-4 left-4">
-                        <span className="px-3 py-1.5 glass-strong text-[hsl(var(--primary))] text-xs font-semibold rounded-full shadow-md backdrop-blur-md">
-                          {bundle.category}
-                        </span>
+                    {/* Thumbnail Carousel */}
+                    {images.length > 1 && (
+                      <div className="w-full px-4 pb-4 pt-2 bg-[hsl(var(--muted))]">
+                        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
+                          {images.map((img, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setSelectedImageIndex(index)}
+                              className={`relative shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                                selectedImageIndex === index
+                                  ? 'border-[hsl(var(--primary))] ring-2 ring-[hsl(var(--primary))]/30'
+                                  : 'border-[hsl(var(--border))] hover:border-[hsl(var(--primary))]/50'
+                              }`}
+                              aria-label={`View image ${index + 1}`}
+                            >
+                              <img
+                                src={img}
+                                alt={`Thumbnail ${index + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                              {selectedImageIndex === index && (
+                                <div className="absolute inset-0 bg-[hsl(var(--primary))]/10" />
+                              )}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -380,42 +411,6 @@ export default function BundleDetailPage() {
             </div>
           </div>
 
-          {/* Gallery Grid */}
-          {images.length > 0 && (
-            <div className="card-elevated p-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">Gallery Preview</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {images.slice(0, 8).map((img, index) => (
-                  <div
-                    key={index}
-                    className="relative aspect-square rounded-[var(--radius-lg)] overflow-hidden border-2 border-[hsl(var(--border))] hover:border-[hsl(var(--primary))] transition-all cursor-pointer group"
-                    onMouseEnter={() => setHoveredImage(index)}
-                    onMouseLeave={() => setHoveredImage(null)}
-                    onClick={() => setSelectedImageIndex(index)}
-                  >
-                    <img
-                      src={img}
-                      alt={`Image ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                    {hoveredImage === index && (
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm">
-                        <ZoomIn className="w-10 h-10 text-white" strokeWidth={2} />
-                      </div>
-                    )}
-                    <div className="absolute bottom-2 left-2 right-2 bg-black/70 text-white text-xs py-1 px-2 rounded text-center font-medium backdrop-blur-sm">
-                      Image {index + 1}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {images.length > 8 && (
-                <p className="text-center text-[hsl(var(--muted-foreground))] text-sm">
-                  +{images.length - 8} more images included in this collection
-                </p>
-              )}
-            </div>
-          )}
 
           {/* Tabs Section */}
           <div className="card-elevated overflow-hidden animate-slide-up" style={{ animationDelay: '200ms' }}>
