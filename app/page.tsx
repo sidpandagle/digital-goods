@@ -161,7 +161,7 @@ export default async function Home() {
                     </h3>
 
                     {bundle.description && (
-                      <p className="text-[hsl(var(--muted-foreground))] text-sm mb-5 line-clamp-2 leading-relaxed">
+                      <p className="text-[hsl(var(--muted-foreground))] text-sm mb-5 line-clamp-2 leading-relaxed whitespace-pre-line">
                         {bundle.description}
                       </p>
                     )}

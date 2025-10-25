@@ -146,7 +146,7 @@ export default function BundleManager() {
                       <div>
                         <h3 className="text-2xl font-bold text-gray-900 mb-2">{bundle.title}</h3>
                         {bundle.description && (
-                          <p className="text-gray-600">{bundle.description}</p>
+                          <p className="text-gray-600 whitespace-pre-line">{bundle.description}</p>
                         )}
                       </div>
                       {bundle.category && (
