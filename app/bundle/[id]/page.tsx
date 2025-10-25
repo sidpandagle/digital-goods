@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Bundle } from '@/types/database';
 import { createClient } from '@/lib/supabase/client';
-import { AlertTriangle, ArrowLeft, Loader2, ShoppingCart, Check, Info, Mail, Image as ImageIcon, Clock, ShieldCheck, ArrowRight, Download, FileText, Palette, Printer, ChevronLeft, ChevronRight } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Loader2, ShoppingCart, Check, Info, Mail, Image as ImageIcon, Clock, ShieldCheck, ArrowRight, Download, FileText, Palette, Printer, ChevronLeft, ChevronRight, Zap, Lock, Award, FileImage, Maximize } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -27,6 +27,7 @@ export default function BundleDetailPage() {
   const [authLoading, setAuthLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<TabType>('description');
+  const thumbnailContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     checkAuth();
@@ -38,6 +39,54 @@ export default function BundleDetailPage() {
       fetchBundle();
     }
   }, [authLoading, params.id]);
+
+  // Auto-scroll thumbnails when clicking near edges of visible area
+  useEffect(() => {
+    if (!thumbnailContainerRef.current || !bundle?.image_urls) return;
+
+    const container = thumbnailContainerRef.current;
+    const thumbnails = container.children;
+
+    if (thumbnails.length === 0) return;
+
+    const clickedThumbnail = thumbnails[selectedImageIndex] as HTMLElement;
+    if (!clickedThumbnail) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const thumbnailRect = clickedThumbnail.getBoundingClientRect();
+
+    // Get all visible thumbnails
+    const visibleThumbnails: number[] = [];
+    Array.from(thumbnails).forEach((thumb, index) => {
+      const rect = (thumb as HTMLElement).getBoundingClientRect();
+      const isVisible = rect.left >= containerRect.left && rect.right <= containerRect.right;
+      if (isVisible) {
+        visibleThumbnails.push(index);
+      }
+    });
+
+    if (visibleThumbnails.length === 0) return;
+
+    const firstVisibleIndex = visibleThumbnails[0];
+    const lastVisibleIndex = visibleThumbnails[visibleThumbnails.length - 1];
+
+    // If clicked thumbnail is 1st or 2nd visible, scroll left
+    if (selectedImageIndex === firstVisibleIndex || selectedImageIndex === visibleThumbnails[1]) {
+      const scrollAmount = thumbnailRect.width + 8; // thumbnail width + gap
+      container.scrollBy({
+        left: -scrollAmount * 2,
+        behavior: 'smooth'
+      });
+    }
+    // If clicked thumbnail is last or 2nd-to-last visible, scroll right
+    else if (selectedImageIndex === lastVisibleIndex || selectedImageIndex === visibleThumbnails[visibleThumbnails.length - 2]) {
+      const scrollAmount = thumbnailRect.width + 8; // thumbnail width + gap
+      container.scrollBy({
+        left: scrollAmount * 2,
+        behavior: 'smooth'
+      });
+    }
+  }, [selectedImageIndex, bundle?.image_urls]);
 
   const checkAuth = async () => {
     const supabase = createClient();
@@ -302,7 +351,7 @@ export default function BundleDetailPage() {
                     {/* Thumbnail Carousel */}
                     {images.length > 1 && (
                       <div className="w-full px-4 pb-4 pt-2 bg-[hsl(var(--muted))]">
-                        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
+                        <div ref={thumbnailContainerRef} className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
                           {images.map((img, index) => (
                             <button
                               key={index}
@@ -335,7 +384,7 @@ export default function BundleDetailPage() {
               <div className="p-8 lg:p-10">
                 <h1 className="text-3xl lg:text-4xl font-bold text-[hsl(var(--foreground))] mb-6 leading-tight">{bundle.title}</h1>
 
-                <div className="border-t border-[hsl(var(--border))] pt-6 mb-6">
+                <div className="border-t border-[hsl(var(--border))]">
                   {/* Key Features */}
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-center text-[hsl(var(--foreground))]">
@@ -353,16 +402,15 @@ export default function BundleDetailPage() {
                   </ul>
 
                   {/* Price */}
-                  <div className="gradient-primary rounded-[var(--radius-lg)] p-6 mb-6 text-white relative overflow-hidden">
+                  <div className="gradient-primary rounded-[var(--radius-lg)] p-4 mb-4 text-white relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
                     <div className="flex justify-between items-center relative z-10">
                       <div>
-                        <p className="text-white/70 text-sm mb-1">Total Price</p>
-                        <p className="text-4xl font-bold">₹{bundle.price}</p>
+                        <p className="text-white/70 text-xs mb-0.5">Total Price</p>
+                        <p className="text-3xl font-bold">₹{bundle.price}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-white/70 text-sm">One-time</p>
-                        <p className="text-white text-sm font-medium">payment</p>
+                        <p className="text-white/90 text-sm font-medium">One-time payment</p>
                       </div>
                     </div>
                   </div>
@@ -406,6 +454,73 @@ export default function BundleDetailPage() {
                       </>
                     )}
                   </button>
+
+                  {/* Trust Badges */}
+                  {/* <div className="mt-6 pt-6 border-t border-[hsl(var(--border))]">
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="text-center">
+                        <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-[hsl(var(--primary-light))] flex items-center justify-center">
+                          <Zap className="w-5 h-5 text-[hsl(var(--primary))]" strokeWidth={2} />
+                        </div>
+                        <p className="text-xs font-medium text-[hsl(var(--foreground))]">Instant</p>
+                        <p className="text-xs text-[hsl(var(--muted-foreground))]">Download</p>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-[hsl(var(--success-light))] flex items-center justify-center">
+                          <Lock className="w-5 h-5 text-[hsl(var(--success))]" strokeWidth={2} />
+                        </div>
+                        <p className="text-xs font-medium text-[hsl(var(--foreground))]">Secure</p>
+                        <p className="text-xs text-[hsl(var(--muted-foreground))]">Payment</p>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-[hsl(var(--secondary-light))] flex items-center justify-center">
+                          <Award className="w-5 h-5 text-[hsl(var(--secondary))]" strokeWidth={2} />
+                        </div>
+                        <p className="text-xs font-medium text-[hsl(var(--foreground))]">Lifetime</p>
+                        <p className="text-xs text-[hsl(var(--muted-foreground))]">Access</p>
+                      </div>
+                    </div>
+                  </div> */}
+
+                  {/* Quick Info Cards */}
+                  <div className="mt-4 space-y-2">
+                    <div className="bg-[hsl(var(--muted))] rounded-lg p-3 flex items-start gap-3">
+                      <FileImage className="w-5 h-5 text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                      <div>
+                        <p className="text-xs font-semibold text-[hsl(var(--foreground))]">File Format</p>
+                        <p className="text-xs text-[hsl(var(--muted-foreground))]">PDF with {bundle.image_count} individual high-res images</p>
+                      </div>
+                    </div>
+                    <div className="bg-[hsl(var(--muted))] rounded-lg p-3 flex items-start gap-3">
+                      <Maximize className="w-5 h-5 text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                      <div>
+                        <p className="text-xs font-semibold text-[hsl(var(--foreground))]">Quality & Usage</p>
+                        <p className="text-xs text-[hsl(var(--muted-foreground))]">Print-ready resolution, personal & commercial use</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Why Buy This */}
+                  {/* <div className="mt-4 bg-gradient-to-br from-[hsl(var(--primary-light))] to-[hsl(var(--secondary-light))] rounded-lg p-4 border border-[hsl(var(--border))]">
+                    <h4 className="text-sm font-bold text-[hsl(var(--foreground))] mb-2 flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-[hsl(var(--primary))]" strokeWidth={2} />
+                      Why Buy This?
+                    </h4>
+                    <ul className="space-y-1.5 text-xs text-[hsl(var(--foreground))]">
+                      <li className="flex items-start gap-2">
+                        <Check className="w-3.5 h-3.5 text-[hsl(var(--success))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span>Unique AI-generated art you won't find elsewhere</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="w-3.5 h-3.5 text-[hsl(var(--success))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span>Perfect for personal projects or commercial use</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="w-3.5 h-3.5 text-[hsl(var(--success))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span>Instant access with no subscription required</span>
+                      </li>
+                    </ul>
+                  </div> */}
                 </div>
               </div>
             </div>

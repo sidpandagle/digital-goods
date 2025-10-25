@@ -280,6 +280,16 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Hide scrollbar while maintaining scroll functionality */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
 .card-elevated:hover {
   box-shadow: var(--shadow-xl);
   transform: translateY(-2px);
