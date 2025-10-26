@@ -25,6 +25,19 @@ interface BundleFormModalProps {
   onSuccess: () => void;
 }
 
+const CATEGORIES = [
+  'Poster',
+  'Digital Print',
+  'Wall Art',
+  'Sticker Design',
+  'Card Design',
+  'Pattern',
+  'Illustration',
+  'Stock Photo',
+  'Social Media',
+  'Other',
+] as const;
+
 export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: BundleFormModalProps) {
   const [uploading, setUploading] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -243,13 +256,19 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Category
             </label>
-            <input
-              type="text"
+            <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
               disabled={submitting}
-            />
+            >
+              <option value="">Select a category</option>
+              {CATEGORIES.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
