@@ -121,7 +121,7 @@ export default function BundleManager() {
                   {/* Preview Image */}
                   <div className="lg:w-1/4 relative overflow-hidden">
                     {previewUrl ? (
-                      <div className="relative">
+                      <div className="relative h-full">
                         <img
                           src={previewUrl}
                           alt={bundle.title}
@@ -145,9 +145,9 @@ export default function BundleManager() {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h3 className="text-2xl font-bold text-gray-900 mb-2">{bundle.title}</h3>
-                        {bundle.description && (
+                        {/* {bundle.description && (
                           <p className="text-gray-600 whitespace-pre-line">{bundle.description}</p>
-                        )}
+                        )} */}
                       </div>
                       {bundle.category && (
                         <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-full">
@@ -165,10 +165,10 @@ export default function BundleManager() {
                         <div className="text-xs text-indigo-600 font-semibold uppercase mb-1">Images</div>
                         <div className="font-bold text-gray-900">{bundle.image_count}</div>
                       </div>
-                      <div className="bg-purple-50 rounded-xl p-3">
+                      {/* <div className="bg-purple-50 rounded-xl p-3">
                         <div className="text-xs text-purple-600 font-semibold uppercase mb-1">Gallery</div>
                         <div className="font-bold text-gray-900">{bundle.image_urls?.length || 0} photos</div>
-                      </div>
+                      </div> */}
                       <div className="bg-pink-50 rounded-xl p-3">
                         <div className="text-xs text-pink-600 font-semibold uppercase mb-1">Created</div>
                         <div className="font-bold text-gray-900 text-sm">

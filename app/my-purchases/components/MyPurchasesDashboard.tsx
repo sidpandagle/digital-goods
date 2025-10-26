@@ -16,7 +16,7 @@ interface Purchase {
     id: string;
     title: string;
     description: string | null;
-    preview_image_url: string | null;
+    image_urls: string[];
     image_count: number;
     category: string | null;
   };
@@ -54,7 +54,7 @@ export default function MyPurchasesDashboard({ user, profile }: MyPurchasesDashb
           bundle_id,
           amount,
           created_at,
-          bundle:bundles(id, title, description, preview_image_url, image_count, category),
+          bundle:bundles(id, title, description, image_urls, image_count, category),
           download_tokens(token, accessed_count, last_accessed_at)
         `)
         .eq('user_id', user.id)
@@ -74,6 +74,8 @@ export default function MyPurchasesDashboard({ user, profile }: MyPurchasesDashb
       }));
 
       setPurchases(formattedPurchases);
+      
+      console.log('Fetched purchases:', formattedPurchases);
     } catch (error) {
       console.error('Error loading purchases:', error);
     } finally {
@@ -182,10 +184,10 @@ export default function MyPurchasesDashboard({ user, profile }: MyPurchasesDashb
                 <div className="lg:flex">
                   {/* Preview Image */}
                   <div className="lg:w-1/3 relative overflow-hidden">
-                    {purchase.bundle.preview_image_url ? (
+                    {purchase.bundle.image_urls && purchase.bundle.image_urls.length > 0 ? (
                       <>
                         <img
-                          src={purchase.bundle.preview_image_url}
+                          src={purchase.bundle.image_urls[0]}
                           alt={purchase.bundle.title}
                           className="w-full h-56 lg:h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
@@ -215,7 +217,7 @@ export default function MyPurchasesDashboard({ user, profile }: MyPurchasesDashb
                         {purchase.bundle.title}
                       </h3>
                       {purchase.bundle.description && (
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-gray-600 leading-relaxed whitespace-break-spaces">
                           {purchase.bundle.description}
                         </p>
                       )}
