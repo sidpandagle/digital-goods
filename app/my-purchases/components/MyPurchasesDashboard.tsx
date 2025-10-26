@@ -216,11 +216,11 @@ export default function MyPurchasesDashboard({ user, profile }: MyPurchasesDashb
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">
                         {purchase.bundle.title}
                       </h3>
-                      {purchase.bundle.description && (
+                      {/* {purchase.bundle.description && (
                         <p className="text-gray-600 leading-relaxed whitespace-break-spaces">
                           {purchase.bundle.description}
                         </p>
-                      )}
+                      )} */}
                     </div>
 
                     <div className="grid grid-cols-2 gap-5 mb-6">
@@ -234,7 +234,7 @@ export default function MyPurchasesDashboard({ user, profile }: MyPurchasesDashb
                       </div>
                       <div className="bg-purple-50 rounded-xl p-4">
                         <div className="text-xs text-purple-600 font-semibold uppercase mb-1">Amount Paid</div>
-                        <div className="font-bold text-gray-900">₹{purchase.amount / 100}</div>
+                        <div className="font-bold text-gray-900">₹{purchase.amount}</div>
                       </div>
                       {purchase.download_token && (
                         <div className="bg-green-50 rounded-xl p-4">
