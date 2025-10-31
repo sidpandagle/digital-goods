@@ -5,6 +5,9 @@
    Clean, elegant, and fluid UI framework
    =============================================== */
 
+/* Custom Tailwind breakpoints for extra small screens */
+@custom-media --xs (min-width: 475px);
+
 @layer base {
   /* Light Theme - Refined minimalist palette */
   :root {
@@ -91,6 +94,83 @@
     --radius-full: 9999px;
   }
 
+  /* Dark Theme - Modern dark palette with vibrant accents */
+  [data-theme="dark"] {
+    /* Base colors - Deep, rich backgrounds */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --surface: 240 10% 5%;
+    --surface-elevated: 240 10% 7%;
+
+    /* Card system - Elevated dark layers */
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+    --card-hover: 240 10% 8%;
+
+    /* Primary - Vibrant blue (same hue, adjusted for dark) */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 217 91% 65%;
+    --primary-light: 217 91% 12%;
+
+    /* Secondary - Rich purple */
+    --secondary: 262.1 83.3% 65%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 262.1 83.3% 70%;
+    --secondary-light: 262 83% 12%;
+
+    /* Accent - Energetic gradient tones */
+    --accent: 280 100% 75%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 280 100% 12%;
+
+    /* Neutral tones - Dark grays */
+    --muted: 240 4% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --muted-hover: 240 4% 18%;
+
+    /* Semantic colors - Adjusted for dark backgrounds */
+    --success: 142 76% 45%;
+    --success-light: 142 76% 12%;
+    --warning: 38 92% 55%;
+    --warning-light: 38 92% 12%;
+    --error: 0 84% 65%;
+    --error-light: 0 84% 12%;
+    --info: 199 89% 55%;
+    --info-light: 199 89% 12%;
+
+    /* Borders - Subtle dark separation */
+    --border: 240 3.7% 15.9%;
+    --border-medium: 240 3.7% 20%;
+    --border-strong: 240 3.7% 25%;
+    --input-border: 240 3.7% 18%;
+    --ring: 217 91% 60%;
+
+    /* Gradients - Enhanced for dark mode */
+    --gradient-primary: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #a78bfa 100%);
+    --gradient-secondary: linear-gradient(135deg, #f472b6 0%, #a78bfa 100%);
+    --gradient-warm: linear-gradient(135deg, #fbbf24 0%, #f87171 100%);
+    --gradient-cool: linear-gradient(135deg, #22d3ee 0%, #60a5fa 100%);
+    --gradient-mesh: radial-gradient(at 40% 20%, hsla(217, 91%, 60%, 0.15) 0px, transparent 50%),
+                     radial-gradient(at 80% 0%, hsla(262, 83%, 65%, 0.15) 0px, transparent 50%),
+                     radial-gradient(at 0% 50%, hsla(199, 89%, 55%, 0.15) 0px, transparent 50%);
+
+    /* Shadows - Enhanced for dark mode depth */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.7);
+    --shadow-colored: 0 10px 40px -10px rgba(96, 165, 250, 0.4);
+    --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.5);
+
+    /* Glass effect variables - Dark mode glass */
+    --glass-bg: rgba(20, 20, 30, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: 16px;
+  }
+
 
   /* Base HTML styles */
   * {
@@ -160,6 +240,11 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .glass-strong {
+  background: rgba(30, 30, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .glass-card {

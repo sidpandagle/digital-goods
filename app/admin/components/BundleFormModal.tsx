@@ -236,30 +236,30 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
       title={bundle ? 'Edit Bundle' : 'Add New Bundle'}
       size="2xl"
     >
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
               Title *
             </label>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
               required
               disabled={submitting}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
               Category
             </label>
             <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+              className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
               disabled={submitting}
             >
               <option value="">Select a category</option>
@@ -272,7 +272,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
               Price (₹) *
             </label>
             <input
@@ -280,21 +280,21 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
               step="0.01"
               value={formData.price}
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
               required
               disabled={submitting}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
               Image Count *
             </label>
             <input
               type="number"
               value={formData.image_count}
               onChange={(e) => setFormData({ ...formData, image_count: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
               required
               disabled={submitting}
             />
@@ -302,26 +302,26 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
             Description
           </label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            rows={16}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            rows={8}
+            className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
             disabled={submitting}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Product Images {imageUrls.length > 0 && <span className="text-blue-600">({imageUrls.length} images - First is preview)</span>}
+          <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
+            Product Images {imageUrls.length > 0 && <span className="text-[hsl(var(--primary))]">({imageUrls.length} images - First is preview)</span>}
           </label>
 
           {/* Image Grid with Drag-and-Drop */}
           {imageUrls.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
               {imageUrls.map((url, index) => (
                 <div
                   key={index}
@@ -330,7 +330,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
                   onDragOver={(e) => handleDragOver(e, index)}
                   onDragEnd={handleDragEnd}
                   className={`relative group cursor-move border-2 rounded-lg overflow-hidden ${
-                    index === 0 ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-200'
+                    index === 0 ? 'border-[hsl(var(--primary))] ring-2 ring-[hsl(var(--primary))]/20' : 'border-[hsl(var(--border))]'
                   }`}
                 >
                   <img
@@ -339,7 +339,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
                     className="w-full h-32 object-cover"
                   />
                   {index === 0 && (
-                    <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded font-bold">
+                    <div className="absolute top-1 left-1 bg-[hsl(var(--primary))] text-white text-xs px-2 py-1 rounded font-bold">
                       Preview
                     </div>
                   )}
@@ -348,13 +348,13 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
                       type="button"
                       onClick={() => handleRemoveImage(index)}
                       disabled={submitting}
-                      className="bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors disabled:opacity-50"
+                      className="bg-[hsl(var(--error))] text-white p-1 rounded-full hover:opacity-90 transition-opacity disabled:opacity-50"
                     >
                       <X className="w-4 h-4" strokeWidth={2} />
                     </button>
                   </div>
                   <div className="absolute bottom-1 left-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="bg-black/50 text-white p-1 rounded">
+                    <div className="bg-[hsl(var(--foreground))]/50 text-[hsl(var(--background))] p-1 rounded">
                       <GripVertical className="w-4 h-4" strokeWidth={2} />
                     </div>
                   </div>
@@ -364,19 +364,21 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
           )}
 
           {/* Upload Buttons */}
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <label className="flex-1 cursor-pointer">
-              <div className={`px-4 py-3 border-2 border-dashed rounded-xl text-center transition-all ${
-                uploading || submitting ? 'border-gray-300 bg-gray-50 cursor-not-allowed' : 'border-blue-300 hover:border-blue-500 hover:bg-blue-50'
+              <div className={`px-3 py-2 border-2 border-dashed rounded-lg text-center transition-all ${
+                uploading || submitting
+                  ? 'border-[hsl(var(--border))] bg-[hsl(var(--muted))] cursor-not-allowed'
+                  : 'border-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))] hover:bg-[hsl(var(--primary-light))]'
               }`}>
                 {uploading ? (
-                  <span className="text-gray-500 flex items-center justify-center gap-2">
+                  <span className="text-[hsl(var(--muted-foreground))] text-sm flex items-center justify-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Uploading...
                   </span>
                 ) : (
-                  <span className="text-blue-600 font-medium flex items-center justify-center gap-2">
-                    <Upload className="w-5 h-5" strokeWidth={2} />
+                  <span className="text-[hsl(var(--primary))] font-medium text-sm flex items-center justify-center gap-2">
+                    <Upload className="w-4 h-4" strokeWidth={2} />
                     Upload Images
                   </span>
                 )}
@@ -395,40 +397,40 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
               type="button"
               onClick={handleAddManualUrl}
               disabled={submitting}
-              className="px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all text-gray-600 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 border-2 border-dashed border-[hsl(var(--border))] rounded-lg hover:border-[hsl(var(--border-medium))] hover:bg-[hsl(var(--muted))] transition-all text-[hsl(var(--muted-foreground))] text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Add URL
             </button>
           </div>
 
-          <p className="mt-2 text-xs text-gray-500">
+          <p className="mt-1.5 text-xs text-[hsl(var(--muted-foreground))]">
             Tip: Drag images to reorder. First image will be used as preview thumbnail.
           </p>
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            PDF URL *
+          <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
+            Google Drive URL *
           </label>
           <input
             type="url"
             value={formData.pdf_url}
             onChange={(e) => setFormData({ ...formData, pdf_url: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
             required
             disabled={submitting}
           />
         </div>
 
-        <div className="flex gap-4 pt-4 border-t border-gray-200">
+        <div className="flex gap-3 pt-3 border-t border-[hsl(var(--border))]">
           <button
             type="submit"
             disabled={submitting || uploading}
-            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+            className="px-6 py-2.5 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-200 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
           >
             {submitting ? (
               <>
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin" />
                 {bundle ? 'Updating...' : 'Creating...'}
               </>
             ) : (
@@ -439,7 +441,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
             type="button"
             onClick={handleClose}
             disabled={submitting}
-            className="px-8 py-4 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-2.5 bg-[hsl(var(--muted))] text-[hsl(var(--foreground))] rounded-lg hover:bg-[hsl(var(--muted-hover))] transition-all duration-200 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>

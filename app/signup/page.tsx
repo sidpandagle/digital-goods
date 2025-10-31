@@ -21,21 +21,28 @@ export default function SignupPage() {
     setError('');
 
     try {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-            role: 'customer',
-          },
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          email,
+          password,
+          fullName,
+        }),
       });
 
-      if (error) throw error;
+      const data = await response.json();
 
-      if (data.user) {
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to sign up');
+      }
+
+      if (data.success) {
+        // Sign in the user
+        const supabase = createClient();
+        await supabase.auth.signInWithPassword({ email, password });
         router.push('/dashboard');
       }
     } catch (err: any) {
@@ -46,11 +53,11 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[hsl(var(--background))] flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-xl mb-4 p-2">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-linear-to-br from-[hsl(var(--primary))] to-[hsl(var(--secondary))] flex items-center justify-center shadow-xl mb-4 p-2">
             <Image
               src="/logo.png"
               alt="Pixel Forge Studio"
@@ -59,24 +66,24 @@ export default function SignupPage() {
               className="w-full h-full object-contain"
             />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">
             Create Account
           </h1>
-          <p className="text-gray-600 mt-2">Join us to access your purchases</p>
+          <p className="text-[hsl(var(--muted-foreground))] mt-2">Join us to access your purchases</p>
         </div>
 
         {/* Signup Form */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div className="bg-[hsl(var(--card))] rounded-2xl shadow-xl p-8 border border-[hsl(var(--border))]">
           <form onSubmit={handleSignup} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-start gap-3">
+              <div className="bg-[hsl(var(--error-light))] border-2 border-[hsl(var(--error))] text-[hsl(var(--error))] px-4 py-3 rounded-xl text-sm flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" strokeWidth={2} />
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="fullName" className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-2">
                 Full Name
               </label>
               <input
@@ -85,13 +92,13 @@ export default function SignupPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="John Doe"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 bg-[hsl(var(--background))] border-2 border-[hsl(var(--input-border))] text-[hsl(var(--foreground))] rounded-xl focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-[hsl(var(--primary))] transition-all"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-2">
                 Email Address
               </label>
               <input
@@ -100,13 +107,13 @@ export default function SignupPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 bg-[hsl(var(--background))] border-2 border-[hsl(var(--input-border))] text-[hsl(var(--foreground))] rounded-xl focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-[hsl(var(--primary))] transition-all"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-2">
                 Password
               </label>
               <input
@@ -115,17 +122,17 @@ export default function SignupPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 bg-[hsl(var(--background))] border-2 border-[hsl(var(--input-border))] text-[hsl(var(--foreground))] rounded-xl focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-[hsl(var(--primary))] transition-all"
                 required
                 minLength={6}
               />
-              <p className="mt-1 text-xs text-gray-500">Must be at least 6 characters</p>
+              <p className="mt-1 text-xs text-[hsl(var(--muted-foreground))]">Must be at least 6 characters</p>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+              className="w-full px-6 py-4 bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -142,16 +149,16 @@ export default function SignupPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-[hsl(var(--muted-foreground))]">
               Already have an account?{' '}
-              <Link href="/login" className="text-blue-600 font-semibold hover:underline">
+              <Link href="/login" className="text-[hsl(var(--primary))] font-semibold hover:underline">
                 Sign in
               </Link>
             </p>
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/" className="text-gray-500 text-sm hover:text-gray-700">
+            <Link href="/" className="text-[hsl(var(--muted-foreground))] text-sm hover:text-[hsl(var(--foreground))]">
               ← Back to Home
             </Link>
           </div>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Bundle } from '@/types/database';
 import { createClient } from '@/lib/supabase/client';
 import { AlertTriangle, ArrowLeft, Loader2, ShoppingCart, Check, Info, Mail, Image as ImageIcon, Clock, ShieldCheck, ArrowRight, Download, FileText, Palette, Printer, ChevronLeft, ChevronRight, Zap, Lock, Award, FileImage, Maximize } from 'lucide-react';
+import SocialShare from '@/app/components/SocialShare';
 
 declare global {
   interface Window {
@@ -293,7 +294,7 @@ export default function BundleDetailPage() {
         </header>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 space-y-4 sm:space-y-6 md:space-y-8">
           {/* Hero Section - Image Carousel + Product Info */}
           <div className="card-elevated overflow-hidden animate-slide-up !transform-none !shadow-none ">
             <div className="grid lg:grid-cols-2">
@@ -381,36 +382,36 @@ export default function BundleDetailPage() {
               </div>
 
               {/* Right: Product Info */}
-              <div className="p-8 lg:p-10">
-                <h1 className="text-3xl lg:text-4xl font-bold text-[hsl(var(--foreground))] mb-6 leading-tight">{bundle.title}</h1>
+              <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[hsl(var(--foreground))] mb-4 sm:mb-6 leading-tight">{bundle.title}</h1>
 
                 <div className="border-t border-[hsl(var(--border))]">
                   {/* Key Features */}
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                     <li className="flex items-center text-[hsl(var(--foreground))]">
-                      <Check className="w-5 h-5 text-[hsl(var(--success))] mr-3 flex-shrink-0" strokeWidth={2} />
-                      <span className="font-medium">{bundle.image_count} HD Images</span>
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--success))] mr-2 sm:mr-3 flex-shrink-0" strokeWidth={2} />
+                      <span className="font-medium text-sm sm:text-base">{bundle.image_count} HD Images</span>
                     </li>
                     <li className="flex items-center text-[hsl(var(--foreground))]">
-                      <Check className="w-5 h-5 text-[hsl(var(--success))] mr-3 flex-shrink-0" strokeWidth={2} />
-                      <span className="font-medium">Printable Quality</span>
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--success))] mr-2 sm:mr-3 flex-shrink-0" strokeWidth={2} />
+                      <span className="font-medium text-sm sm:text-base">Printable Quality</span>
                     </li>
                     <li className="flex items-center text-[hsl(var(--foreground))]">
-                      <Check className="w-5 h-5 text-[hsl(var(--success))] mr-3 flex-shrink-0" strokeWidth={2} />
-                      <span className="font-medium">AI-Generated Art</span>
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--success))] mr-2 sm:mr-3 flex-shrink-0" strokeWidth={2} />
+                      <span className="font-medium text-sm sm:text-base">AI-Generated Art</span>
                     </li>
                   </ul>
 
                   {/* Price */}
-                  <div className="gradient-primary rounded-[var(--radius-lg)] p-4 mb-4 text-white relative overflow-hidden">
+                  <div className="gradient-primary rounded-[var(--radius-lg)] p-3 sm:p-4 mb-3 sm:mb-4 text-white relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
                     <div className="flex justify-between items-center relative z-10">
                       <div>
                         <p className="text-white/70 text-xs mb-0.5">Total Price</p>
-                        <p className="text-3xl font-bold">₹{bundle.price}</p>
+                        <p className="text-2xl sm:text-3xl font-bold">₹{bundle.price}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-white/90 text-sm font-medium">One-time payment</p>
+                        <p className="text-white/90 text-xs sm:text-sm font-medium">One-time payment</p>
                       </div>
                     </div>
                   </div>
@@ -418,18 +419,18 @@ export default function BundleDetailPage() {
 
 
                   {error && (
-                    <div className="mt-4 bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-[var(--radius-lg)] text-sm font-medium flex items-start gap-2">
-                      <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" strokeWidth={2} />
-                      {error}
+                    <div className="mt-3 sm:mt-4 bg-red-50 border-2 border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded-[var(--radius-lg)] text-xs sm:text-sm font-medium flex items-start gap-2">
+                      <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" strokeWidth={2} />
+                      <span>{error}</span>
                     </div>
                   )}
 
                   {!user && (
-                    <div className="mb-4 bg-[hsl(var(--info-light))] border-2 border-[hsl(var(--info))] rounded-[var(--radius-lg)] p-4">
+                    <div className="mb-3 sm:mb-4 bg-[hsl(var(--info-light))] border-2 border-[hsl(var(--info))] rounded-[var(--radius-lg)] p-3 sm:p-4">
                       <div className="flex items-start gap-2">
-                        <Info className="w-5 h-5 text-[hsl(var(--info))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <Info className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--info))] flex-shrink-0 mt-0.5" strokeWidth={2} />
                         <div>
-                          <p className="font-bold text-[hsl(var(--foreground))] text-sm mb-1">Login Required</p>
+                          <p className="font-bold text-[hsl(var(--foreground))] text-xs sm:text-sm mb-1">Login Required</p>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">You'll be prompted to log in to complete purchase</p>
                         </div>
                       </div>
@@ -440,16 +441,16 @@ export default function BundleDetailPage() {
                   <button
                     onClick={handlePurchase}
                     disabled={processing}
-                    className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
                     {processing ? (
                       <>
-                        <Loader2 className="animate-spin h-5 w-5" />
+                        <Loader2 className="animate-spin h-4 w-4 sm:h-5 sm:w-5" />
                         Processing...
                       </>
                     ) : (
                       <>
-                        <ShoppingCart className="w-5 h-5" strokeWidth={2} />
+                        <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
                         BUY NOW
                       </>
                     )}
@@ -483,21 +484,30 @@ export default function BundleDetailPage() {
                   </div> */}
 
                   {/* Quick Info Cards */}
-                  <div className="mt-4 space-y-2">
-                    <div className="bg-[hsl(var(--muted))] rounded-lg p-3 flex items-start gap-3">
-                      <FileImage className="w-5 h-5 text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                  <div className="mt-3 sm:mt-4 space-y-2">
+                    <div className="bg-[hsl(var(--muted))] rounded-lg p-2.5 sm:p-3 flex items-start gap-2 sm:gap-3">
+                      <FileImage className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" strokeWidth={2} />
                       <div>
                         <p className="text-xs font-semibold text-[hsl(var(--foreground))]">File Format</p>
                         <p className="text-xs text-[hsl(var(--muted-foreground))]">PDF with {bundle.image_count} individual high-res images</p>
                       </div>
                     </div>
-                    <div className="bg-[hsl(var(--muted))] rounded-lg p-3 flex items-start gap-3">
-                      <Maximize className="w-5 h-5 text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" strokeWidth={2} />
+                    <div className="bg-[hsl(var(--muted))] rounded-lg p-2.5 sm:p-3 flex items-start gap-2 sm:gap-3">
+                      <Maximize className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" strokeWidth={2} />
                       <div>
                         <p className="text-xs font-semibold text-[hsl(var(--foreground))]">Quality & Usage</p>
                         <p className="text-xs text-[hsl(var(--muted-foreground))]">Print-ready resolution, personal & commercial use</p>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Social Sharing */}
+                  <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-[hsl(var(--border))]">
+                    <SocialShare
+                      url={typeof window !== 'undefined' ? window.location.href : ''}
+                      title={bundle.title}
+                      description={bundle.description || `Check out this amazing bundle of ${bundle.image_count} HD AI-generated images!`}
+                    />
                   </div>
 
                   {/* Why Buy This */}
@@ -531,21 +541,21 @@ export default function BundleDetailPage() {
           <div className="card-elevated overflow-hidden animate-slide-up" style={{ animationDelay: '200ms' }}>
             {/* Tab Navigation */}
             <div className="border-b border-[hsl(var(--border))]">
-              <div className="flex overflow-x-auto">
+              <div className="flex overflow-x-auto hide-scrollbar">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
                   return (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all whitespace-nowrap ${
+                      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-semibold transition-all whitespace-nowrap text-xs sm:text-sm md:text-base ${
                         activeTab === tab.id
                           ? 'text-[hsl(var(--primary))] border-b-2 border-[hsl(var(--primary))] bg-[hsl(var(--primary-light))]'
                           : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]'
                       }`}
                     >
-                      <Icon className="w-5 h-5" strokeWidth={2} />
-                      {tab.label}
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
+                      <span className="hidden xs:inline">{tab.label}</span>
                     </button>
                   );
                 })}
@@ -553,14 +563,14 @@ export default function BundleDetailPage() {
             </div>
 
             {/* Tab Content */}
-            <div className="p-8">
+            <div className="p-4 sm:p-6 md:p-8">
               {activeTab === 'description' && (
                 <div className="prose max-w-none">
-                  <h3 className="text-xl font-bold text-[hsl(var(--foreground))] mb-4">About This Collection</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3 sm:mb-4">About This Collection</h3>
                   {bundle.description ? (
-                    <p className="text-[hsl(var(--foreground))] leading-relaxed whitespace-pre-line">{bundle.description}</p>
+                    <p className="text-sm sm:text-base text-[hsl(var(--foreground))] leading-relaxed whitespace-pre-line">{bundle.description}</p>
                   ) : (
-                    <p className="text-[hsl(var(--foreground))] leading-relaxed">
+                    <p className="text-sm sm:text-base text-[hsl(var(--foreground))] leading-relaxed">
                       This stunning collection features {bundle.image_count} high-quality AI-generated images.
                       Each image has been carefully crafted to capture the essence and beauty of the theme,
                       perfect for your creative projects.
@@ -571,8 +581,8 @@ export default function BundleDetailPage() {
 
               {activeTab === 'included' && (
                 <div>
-                  <h3 className="text-xl font-bold text-[hsl(var(--foreground))] ">What You'll Get</h3>
-                  <ul className="space-y-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-4">What You'll Get</h3>
+                  <ul className="space-y-3 sm:space-y-4">
                     <li className="flex items-start">
                       <div className="w-8 h-8 rounded-full bg-[hsl(var(--success-light))] flex items-center justify-center mr-4 flex-shrink-0 mt-0.5">
                         <Check className="w-5 h-5 text-[hsl(var(--success))]" strokeWidth={2} />
@@ -700,23 +710,23 @@ export default function BundleDetailPage() {
           </div>
 
           {/* Footer */}
-          <footer className="card-elevated p-8 animate-slide-up" style={{ animationDelay: '400ms' }}>
-            <div className="grid md:grid-cols-3 gap-6 text-center md:text-left">
+          <footer className="card-elevated p-4 sm:p-6 md:p-8 animate-slide-up" style={{ animationDelay: '400ms' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 text-center sm:text-left">
               <div>
-                <h3 className="font-bold text-[hsl(var(--foreground))] mb-2">License</h3>
-                <p className="text-sm text-[hsl(var(--muted-foreground))]">
+                <h3 className="font-bold text-[hsl(var(--foreground))] mb-2 text-sm sm:text-base">License</h3>
+                <p className="text-xs sm:text-sm text-[hsl(var(--muted-foreground))]">
                   Personal & Commercial use allowed. Cannot resell or redistribute as-is.
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-[hsl(var(--foreground))] mb-2">Contact</h3>
-                <p className="text-sm text-[hsl(var(--muted-foreground))]">
+                <h3 className="font-bold text-[hsl(var(--foreground))] mb-2 text-sm sm:text-base">Contact</h3>
+                <p className="text-xs sm:text-sm text-[hsl(var(--muted-foreground))] break-words">
                   Questions? Email us at support@pixelforgestudio.in
                 </p>
               </div>
-              <div>
-                <h3 className="font-bold text-[hsl(var(--foreground))] mb-2">Pixel Forge Studio</h3>
-                <p className="text-sm text-[hsl(var(--muted-foreground))]">
+              <div className="sm:col-span-2 md:col-span-1">
+                <h3 className="font-bold text-[hsl(var(--foreground))] mb-2 text-sm sm:text-base">Pixel Forge Studio</h3>
+                <p className="text-xs sm:text-sm text-[hsl(var(--muted-foreground))]">
                   Premium AI-generated digital art collections
                 </p>
               </div>

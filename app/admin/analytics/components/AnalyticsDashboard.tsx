@@ -136,15 +136,15 @@ export default function AnalyticsDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-200/50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Link href="/admin" className="text-gray-500 hover:text-gray-700">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </Link>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Analytics Dashboard
               </h1>
             </div>
@@ -152,45 +152,45 @@ export default function AnalyticsDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Total Revenue</p>
-                <p className="text-3xl font-bold text-gray-900">₹{analytics.totalRevenue.toFixed(2)}</p>
+                <p className="text-xs font-semibold text-gray-600 uppercase mb-0.5">Total Revenue</p>
+                <p className="text-2xl font-bold text-gray-900">₹{analytics.totalRevenue.toFixed(2)}</p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+          <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Total Orders</p>
-                <p className="text-3xl font-bold text-gray-900">{analytics.totalOrders}</p>
+                <p className="text-xs font-semibold text-gray-600 uppercase mb-0.5">Total Orders</p>
+                <p className="text-2xl font-bold text-gray-900">{analytics.totalOrders}</p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+          <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Total Bundles</p>
-                <p className="text-3xl font-bold text-gray-900">{analytics.totalBundles}</p>
+                <p className="text-xs font-semibold text-gray-600 uppercase mb-0.5">Total Bundles</p>
+                <p className="text-2xl font-bold text-gray-900">{analytics.totalBundles}</p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
@@ -199,28 +199,28 @@ export default function AnalyticsDashboard() {
         </div>
 
         {/* Top Selling Bundles */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Top Selling Bundles</h2>
+        <div className="bg-white rounded-xl shadow-lg p-5 border border-gray-100 mb-4">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Top Selling Bundles</h2>
           {analytics.topBundles.length === 0 ? (
-            <p className="text-gray-600">No sales data available yet.</p>
+            <p className="text-sm text-gray-600">No sales data available yet.</p>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {analytics.topBundles.map((bundle, index) => (
                 <div
                   key={bundle.bundle_id}
-                  className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl"
+                  className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center text-sm font-bold">
                       {index + 1}
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900">{bundle.title}</h3>
-                      <p className="text-sm text-gray-600">{bundle.sales_count} sales</p>
+                      <h3 className="font-bold text-gray-900 text-sm">{bundle.title}</h3>
+                      <p className="text-xs text-gray-600">{bundle.sales_count} sales</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-900">₹{bundle.total_revenue.toFixed(2)}</p>
+                    <p className="font-bold text-gray-900 text-sm">₹{bundle.total_revenue.toFixed(2)}</p>
                     <p className="text-xs text-gray-600">Revenue</p>
                   </div>
                 </div>
@@ -230,31 +230,31 @@ export default function AnalyticsDashboard() {
         </div>
 
         {/* Recent Orders */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Orders</h2>
+        <div className="bg-white rounded-xl shadow-lg p-5 border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Orders</h2>
           {analytics.recentOrders.length === 0 ? (
-            <p className="text-gray-600">No orders yet.</p>
+            <p className="text-sm text-gray-600">No orders yet.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b-2 border-gray-200">
-                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Email</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Bundle</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Amount</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
+                    <th className="text-left py-2 px-3 text-xs font-semibold text-gray-700">Email</th>
+                    <th className="text-left py-2 px-3 text-xs font-semibold text-gray-700">Bundle</th>
+                    <th className="text-left py-2 px-3 text-xs font-semibold text-gray-700">Amount</th>
+                    <th className="text-left py-2 px-3 text-xs font-semibold text-gray-700">Status</th>
+                    <th className="text-left py-2 px-3 text-xs font-semibold text-gray-700">Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   {analytics.recentOrders.map((order) => (
                     <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-3 px-4">{order.email}</td>
-                      <td className="py-3 px-4">{order.bundle.title}</td>
-                      <td className="py-3 px-4 font-semibold">₹{(order.amount / 100).toFixed(2)}</td>
-                      <td className="py-3 px-4">
+                      <td className="py-2 px-3 text-sm">{order.email}</td>
+                      <td className="py-2 px-3 text-sm">{order.bundle.title}</td>
+                      <td className="py-2 px-3 text-sm font-semibold">₹{(order.amount / 100).toFixed(2)}</td>
+                      <td className="py-2 px-3">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-bold ${
+                          className={`px-2 py-0.5 rounded-full text-xs font-bold ${
                             order.status === 'paid'
                               ? 'bg-green-100 text-green-700'
                               : order.status === 'failed'
@@ -265,7 +265,7 @@ export default function AnalyticsDashboard() {
                           {order.status}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-sm text-gray-600">
+                      <td className="py-2 px-3 text-xs text-gray-600">
                         {new Date(order.created_at).toLocaleDateString()}
                       </td>
                     </tr>

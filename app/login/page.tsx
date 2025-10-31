@@ -76,11 +76,11 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[hsl(var(--background))] flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-xl mb-4 p-2">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-linear-to-br from-[hsl(var(--primary))] to-[hsl(var(--secondary))] flex items-center justify-center shadow-xl mb-4 p-2">
             <Image
               src="/logo.png"
               alt="Pixel Forge Studio"
@@ -89,24 +89,24 @@ function LoginForm() {
               className="w-full h-full object-contain"
             />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">
             Welcome Back
           </h1>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
+          <p className="text-[hsl(var(--muted-foreground))] mt-2">Sign in to your account</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div className="bg-[hsl(var(--card))] rounded-2xl shadow-xl p-8 border border-[hsl(var(--border))]">
           <form onSubmit={handleLogin} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-start gap-3">
+              <div className="bg-[hsl(var(--error-light))] border-2 border-[hsl(var(--error))] text-[hsl(var(--error))] px-4 py-3 rounded-xl text-sm flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" strokeWidth={2} />
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-2">
                 Email Address
               </label>
               <input
@@ -115,13 +115,13 @@ function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 bg-[hsl(var(--background))] border-2 border-[hsl(var(--input-border))] text-[hsl(var(--foreground))] rounded-xl focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-[hsl(var(--primary))] transition-all"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-2">
                 Password
               </label>
               <input
@@ -130,7 +130,7 @@ function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 bg-[hsl(var(--background))] border-2 border-[hsl(var(--input-border))] text-[hsl(var(--foreground))] rounded-xl focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-[hsl(var(--primary))] transition-all"
                 required
               />
             </div>
@@ -138,7 +138,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+              className="w-full px-6 py-4 bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200 font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -155,16 +155,16 @@ function LoginForm() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-[hsl(var(--muted-foreground))]">
               Don&apos;t have an account?{' '}
-              <Link href="/signup" className="text-blue-600 font-semibold hover:underline">
+              <Link href="/signup" className="text-[hsl(var(--primary))] font-semibold hover:underline">
                 Sign up
               </Link>
             </p>
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/" className="text-gray-500 text-sm hover:text-gray-700">
+            <Link href="/" className="text-[hsl(var(--muted-foreground))] text-sm hover:text-[hsl(var(--foreground))]">
               ← Back to Home
             </Link>
           </div>
@@ -177,8 +177,8 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <Loader2 className="animate-spin h-8 w-8 text-blue-600" />
+      <div className="min-h-screen bg-[hsl(var(--background))] flex items-center justify-center">
+        <Loader2 className="animate-spin h-8 w-8 text-[hsl(var(--primary))]" />
       </div>
     }>
       <LoginForm />

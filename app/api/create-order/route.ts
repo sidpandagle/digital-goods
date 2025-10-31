@@ -96,15 +96,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.table({
-        user_id: user.id,
-        bundle_id: bundleId,
-        razorpay_order_id: razorpayOrder.id,
-        amount: bundle.price,
-        currency: 'INR',
-        status: 'created',
-        email: email,
-      })
     // Create order record in database
     const { data: order, error: orderError } = await serviceClient
       .from('orders')

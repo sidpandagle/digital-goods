@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { Bundle } from '@/types/database';
 import { createClient } from '@/lib/supabase/server';
 import Header from './components/Header';
-import { Star, CheckCircle, Video, Zap, Image as ImageIcon, Eye, ChevronRight, Mail } from 'lucide-react';
+import Footer from './components/Footer';
+import { Star, CheckCircle, Video, Zap, Image as ImageIcon, Eye, ChevronRight } from 'lucide-react';
 
 async function getBundles(): Promise<Bundle[]> {
   try {
@@ -44,37 +45,37 @@ export default async function Home() {
         <Header />
 
         {/* Hero Section - Enhanced with modern gradients and effects */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12">
           <div className="text-center animate-slide-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--primary-light))] text-[hsl(var(--primary))] text-sm font-medium mb-6 animate-in">
-              <Star className="w-4 h-4 fill-current" />
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[hsl(var(--primary-light))] text-[hsl(var(--primary))] text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-in">
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
               Premium Digital Collections
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 text-gradient leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 text-gradient leading-tight px-2">
               Discover Stunning
               <br />
               AI Art
             </h2>
 
-            <p className="text-xl md:text-2xl text-[hsl(var(--muted-foreground))] max-w-3xl mx-auto mb-10 text-balance leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[hsl(var(--muted-foreground))] max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 text-balance leading-relaxed px-4">
               Explore our curated collection of premium AI-generated digital art bundles,
               carefully crafted for creators and enthusiasts
             </p>
 
             {/* Stats badges */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mb-4">
-              <div className="flex items-center gap-2 px-5 py-3 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] shadow-sm">
-                <CheckCircle className="w-5 h-5 text-[hsl(var(--success))]" />
-                <span className="text-sm font-medium text-[hsl(var(--foreground))]">High Quality</span>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 px-4">
+              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] shadow-sm">
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--success))]" />
+                <span className="text-xs sm:text-sm font-medium text-[hsl(var(--foreground))]">High Quality</span>
               </div>
-              <div className="flex items-center gap-2 px-5 py-3 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] shadow-sm">
-                <Video className="w-5 h-5 text-[hsl(var(--info))]" />
-                <span className="text-sm font-medium text-[hsl(var(--foreground))]">Instant Download</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] shadow-sm">
+                <Video className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--info))]" />
+                <span className="text-xs sm:text-sm font-medium text-[hsl(var(--foreground))]">Instant Download</span>
               </div>
-              <div className="flex items-center gap-2 px-5 py-3 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] shadow-sm">
-                <Zap className="w-5 h-5 text-[hsl(var(--warning))]" />
-                <span className="text-sm font-medium text-[hsl(var(--foreground))]">Commercial License</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] shadow-sm">
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--warning))]" />
+                <span className="text-xs sm:text-sm font-medium text-[hsl(var(--foreground))]">Commercial License</span>
               </div>
             </div>
           </div>
@@ -95,10 +96,10 @@ export default async function Home() {
           </div>
         ) : (
           <>
-            <div className="mb-12 flex items-center justify-between animate-slide-up">
+            <div className="mb-8 sm:mb-10 md:mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between animate-slide-up gap-2">
               <div>
-                <h2 className="text-4xl font-bold text-[hsl(var(--foreground))] mb-2">Available Collections</h2>
-                <p className="text-[hsl(var(--muted-foreground))] flex items-center gap-2 text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))] mb-2">Available Collections</h2>
+                <p className="text-[hsl(var(--muted-foreground))] flex items-center gap-2 text-sm sm:text-base md:text-lg">
                   <span className="inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-[hsl(var(--primary-light))] text-[hsl(var(--primary))] text-sm font-semibold">
                     {bundles.length}
                   </span>
@@ -108,7 +109,7 @@ export default async function Home() {
             </div>
 
             {/* Bundle Grid - Enhanced modern card design */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {bundles.map((bundle, index) => (
                 <Link
                   key={bundle.id}
@@ -155,21 +156,21 @@ export default async function Home() {
                   </div>
 
                   {/* Bundle Info - Modern typography and spacing */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[hsl(var(--foreground))] mb-2 group-hover:text-[hsl(var(--primary))] transition-colors">
+                  <div className="p-4 sm:p-5 md:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-2 group-hover:text-[hsl(var(--primary))] transition-colors">
                       {bundle.title}
                     </h3>
 
                     {bundle.description && (
-                      <p className="text-[hsl(var(--muted-foreground))] text-sm mb-5 line-clamp-2 leading-relaxed whitespace-pre-line">
+                      <p className="text-[hsl(var(--muted-foreground))] text-xs sm:text-sm mb-4 sm:mb-5 line-clamp-2 leading-relaxed whitespace-pre-line">
                         {bundle.description}
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between py-4 border-t border-[hsl(var(--border))]">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-[hsl(var(--primary-light))] flex items-center justify-center">
-                          <ImageIcon className="w-4 h-4 text-[hsl(var(--primary))]" strokeWidth={2} />
+                    <div className="flex items-center justify-between py-3 sm:py-4 border-t border-[hsl(var(--border))]">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[hsl(var(--primary-light))] flex items-center justify-center">
+                          <ImageIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--primary))]" strokeWidth={2} />
                         </div>
                         <div>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">Images</p>
@@ -178,14 +179,14 @@ export default async function Home() {
                       </div>
                       <div className="text-right">
                         <p className="text-xs text-[hsl(var(--muted-foreground))] mb-0.5">Price</p>
-                        <p className="text-2xl font-bold text-gradient">
+                        <p className="text-xl sm:text-2xl font-bold text-gradient">
                           ₹{bundle.price}
                         </p>
                       </div>
                     </div>
 
-                    <div className="mt-5">
-                      <div className="btn-primary w-full flex items-center justify-center gap-2 group/btn">
+                    <div className="mt-4 sm:mt-5">
+                      <div className="btn-primary w-full flex items-center justify-center gap-2 group/btn text-sm sm:text-base">
                         View Details
                         <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" strokeWidth={2} />
                       </div>
@@ -198,86 +199,7 @@ export default async function Home() {
         )}
       </main>
 
-      {/* Footer - Modern glass design */}
-      <footer className="relative mt-28 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 gradient-primary opacity-5" />
-        <div className="absolute inset-0 bg-[hsl(var(--surface))] border-t border-[hsl(var(--border))]" />
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utb3BhY2l0eT0iMC4wNSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30 text-[hsl(var(--foreground))]" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            {/* Brand section */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="absolute inset-0 gradient-primary rounded-lg blur opacity-40" />
-                  <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md p-1.5">
-                    <Image
-                      src="/logo.png"
-                      alt="Pixel Forge Studio"
-                      width={32}
-                      height={32}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                </div>
-                <span className="font-bold text-xl text-[hsl(var(--foreground))]">Pixel Forge Studio</span>
-              </div>
-              <p className="text-[hsl(var(--muted-foreground))] text-sm leading-relaxed max-w-xs">
-                Premium AI-generated digital art bundles for creators and enthusiasts. Discover limitless creativity.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h3 className="font-semibold text-[hsl(var(--foreground))] mb-5 text-lg">Quick Links</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/" className="text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors inline-flex items-center gap-2 group">
-                    <ChevronRight className="w-4 h-4 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all" strokeWidth={2} />
-                    Browse Bundles
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/dashboard" className="text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors inline-flex items-center gap-2 group">
-                    <ChevronRight className="w-4 h-4 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all" strokeWidth={2} />
-                    My Purchases
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div>
-              <h3 className="font-semibold text-[hsl(var(--foreground))] mb-5 text-lg">Support</h3>
-              <p className="text-[hsl(var(--muted-foreground))] text-sm mb-3">
-                Need help? We're here for you.
-              </p>
-              <a
-                href="mailto:support@pixelforgestudio.in"
-                className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary-hover))] transition-colors font-medium"
-              >
-                <Mail className="w-5 h-5" strokeWidth={2} />
-                support@pixelforgestudio.in
-              </a>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
-          <div className="border-t border-[hsl(var(--border))] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[hsl(var(--muted-foreground))] text-sm">
-              © 2025 Pixel Forge Studio. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6 text-sm text-[hsl(var(--muted-foreground))]">
-              <button className="hover:text-[hsl(var(--primary))] transition-colors">Privacy Policy</button>
-              <button className="hover:text-[hsl(var(--primary))] transition-colors">Terms of Service</button>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
       </div>
     </div>
   );

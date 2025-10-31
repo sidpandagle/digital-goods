@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { verifyPaymentSignature } from '@/lib/razorpay/client';
 import { randomBytes } from 'crypto';
+import { sendOrderConfirmationEmail } from '@/lib/email/emailService';
 
 export async function POST(request: NextRequest) {
   try {
@@ -89,8 +90,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Send email with download link
-    // const downloadUrl = `${process.env.NEXT_PUBLIC_APP_URL}/download/${downloadToken}`;
+    // Send order confirmation email with download link
+    const downloadUrl = `${process.env.NEXT_PUBLIC_APP_URL}/download/${downloadToken}`;
+
+    // Get user name from user metadata or order
+    const userName = user?.user_metadata?.full_name || order.email.split('@')[0];
+
+    // Send email (non-blocking - don't wait for it)
+    sendOrderConfirmationEmail({
+      to: order.email,
+      userName: userName,
+      orderId: order.id,
+      bundleName: bundle.name,
+      bundlePrice: bundle.price,
+      orderDate: new Date(order.created_at).toLocaleDateString('en-IN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      downloadUrl: downloadUrl,
+    }).catch((error) => {
+      // Log error but don't fail the payment verification
+      console.error('Failed to send order confirmation email:', error);
+    });
 
     return NextResponse.json({
       success: true,
