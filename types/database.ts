@@ -6,7 +6,7 @@ export interface Bundle {
   image_urls: string[]; // Array of image URLs, first is preview
   price: number;
   image_count: number;
-  pdf_url: string; // Single PDF file URL for the bundle
+  pdf_url: string; // Google Drive folder link containing bundle of digital prints
   category: string | null;
   created_at: string;
   updated_at: string;
@@ -41,7 +41,7 @@ export interface DownloadToken {
   order_id: string;
   bundle_id: string;
   token: string;
-  pdf_url: string | null; // URL to the PDF file (copied from bundle)
+  pdf_url: string | null; // Google Drive folder link (copied from bundle)
   email: string;
   expires_at: string | null;
   accessed_count: number;

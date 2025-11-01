@@ -79,9 +79,9 @@ export default function Footer() {
             <h3 className="font-semibold text-[hsl(var(--foreground))] mb-4 sm:mb-5 text-base sm:text-lg">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <Link href="/" className="text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors inline-flex items-center gap-2 group text-sm sm:text-base">
+                <Link href="/browse-collections" className="text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors inline-flex items-center gap-2 group text-sm sm:text-base">
                   <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 -ml-5 sm:-ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all" strokeWidth={2} />
-                  Browse Bundles
+                  Browse Collections
                 </Link>
               </li>
               <li>

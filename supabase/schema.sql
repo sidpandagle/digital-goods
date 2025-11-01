@@ -25,7 +25,7 @@ CREATE TABLE bundles (
   preview_image_url TEXT,
   price DECIMAL(10, 2) NOT NULL,
   image_count INTEGER NOT NULL,
-  pdf_url TEXT NOT NULL, -- Single PDF file URL for the bundle
+  pdf_url TEXT NOT NULL, -- Google Drive folder link containing bundle of digital prints
   category TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -64,7 +64,7 @@ CREATE TABLE download_tokens (
   order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
   bundle_id UUID REFERENCES bundles(id) ON DELETE CASCADE,
   token TEXT UNIQUE NOT NULL,
-  pdf_url TEXT, -- URL to the PDF file (copied from bundle)
+  pdf_url TEXT, -- Google Drive folder link (copied from bundle)
   email TEXT NOT NULL,
   expires_at TIMESTAMP WITH TIME ZONE, -- NULL for lifetime access
   accessed_count INTEGER DEFAULT 0,

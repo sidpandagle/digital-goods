@@ -183,7 +183,7 @@ export default function BundleManager() {
                       <div className="bg-[hsl(var(--success-light))] border border-[hsl(var(--success))]/20 rounded-lg p-2.5">
                         <div className="flex items-center gap-1 text-xs text-[hsl(var(--success))] font-semibold uppercase mb-0.5">
                           <FileText className="w-3 h-3" strokeWidth={2} />
-                          PDF
+                          Drive Link
                         </div>
                         <div className="font-bold text-[hsl(var(--foreground))] text-xs">
                           {bundle.pdf_url ? 'Available' : 'Missing'}
@@ -214,7 +214,7 @@ export default function BundleManager() {
                           className="flex items-center gap-1 text-[hsl(var(--primary))] hover:underline"
                         >
                           <FileText className="w-3 h-3" strokeWidth={2} />
-                          View PDF
+                          View Drive Folder
                         </a>
                       )}
                     </div>

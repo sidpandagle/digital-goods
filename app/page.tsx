@@ -4,15 +4,16 @@ import { Bundle } from '@/types/database';
 import { createClient } from '@/lib/supabase/server';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { Star, CheckCircle, Video, Zap, Image as ImageIcon, Eye, ChevronRight } from 'lucide-react';
+import { Star, CheckCircle, Video, Zap, Image as ImageIcon, Eye, ChevronRight, Download, ShoppingCart, Package, Award, Shield, Sparkles } from 'lucide-react';
 
-async function getBundles(): Promise<Bundle[]> {
+async function getRecentBundles(): Promise<Bundle[]> {
   try {
     const supabase = await createClient();
     const { data: bundles, error } = await supabase
       .from('bundles')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(3);
 
     if (error) {
       console.error('Error fetching bundles:', error);
@@ -29,7 +30,7 @@ async function getBundles(): Promise<Bundle[]> {
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const bundles = await getBundles();
+  const bundles = await getRecentBundles();
 
   return (
     <div className="min-h-screen bg-[hsl(var(--background))] relative overflow-hidden">
@@ -98,14 +99,18 @@ export default async function Home() {
           <>
             <div className="mb-8 sm:mb-10 md:mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between animate-slide-up gap-2">
               <div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))] mb-2">Available Collections</h2>
-                <p className="text-[hsl(var(--muted-foreground))] flex items-center gap-2 text-sm sm:text-base md:text-lg">
-                  <span className="inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-[hsl(var(--primary-light))] text-[hsl(var(--primary))] text-sm font-semibold">
-                    {bundles.length}
-                  </span>
-                  bundle{bundles.length !== 1 ? 's' : ''} ready to explore
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))] mb-2">Recent Collections</h2>
+                <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base md:text-lg">
+                  Explore our latest premium digital art bundles
                 </p>
               </div>
+              <Link
+                href="/browse-collections"
+                className="btn-primary flex items-center gap-2 text-sm sm:text-base whitespace-nowrap"
+              >
+                View All
+                <ChevronRight className="w-4 h-4" strokeWidth={2} />
+              </Link>
             </div>
 
             {/* Bundle Grid - Enhanced modern card design */}
@@ -194,6 +199,168 @@ export default async function Home() {
                   </div>
                 </Link>
               ))}
+            </div>
+
+            {/* Features Section */}
+            <div className="mt-16 sm:mt-20 md:mt-24">
+              <div className="text-center mb-10 sm:mb-12 md:mb-16 animate-slide-up">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))] mb-4">
+                  Why Choose Pixel Forge Studio?
+                </h2>
+                <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+                  Premium quality digital art with commercial licensing and instant access
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="card-elevated p-6 sm:p-8 text-center animate-slide-up" style={{ animationDelay: '100ms' }}>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                    <Award className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3">Premium Quality</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed">
+                    Each artwork is carefully curated and crafted using advanced AI technology to ensure the highest quality standards
+                  </p>
+                </div>
+
+                <div className="card-elevated p-6 sm:p-8 text-center animate-slide-up" style={{ animationDelay: '200ms' }}>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                    <Download className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3">Instant Download</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed">
+                    Get immediate access to your purchased bundles. Download your files anytime, anywhere, with no waiting period
+                  </p>
+                </div>
+
+                <div className="card-elevated p-6 sm:p-8 text-center animate-slide-up" style={{ animationDelay: '300ms' }}>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                    <Shield className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3">Commercial License</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed">
+                    Use our digital art in your commercial projects with full licensing rights included in every purchase
+                  </p>
+                </div>
+
+                <div className="card-elevated p-6 sm:p-8 text-center animate-slide-up" style={{ animationDelay: '100ms' }}>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                    <Package className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3">Curated Collections</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed">
+                    Carefully organized bundles with multiple high-resolution images, perfect for diverse creative projects
+                  </p>
+                </div>
+
+                <div className="card-elevated p-6 sm:p-8 text-center animate-slide-up" style={{ animationDelay: '200ms' }}>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                    <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3">AI-Powered Art</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed">
+                    Cutting-edge AI technology creates unique, stunning visuals that stand out in any creative project
+                  </p>
+                </div>
+
+                <div className="card-elevated p-6 sm:p-8 text-center animate-slide-up" style={{ animationDelay: '300ms' }}>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                    <CheckCircle className="w-7 h-7 sm:w-8 sm:h-8 text-white" strokeWidth={2} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[hsl(var(--foreground))] mb-3">Secure & Trusted</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed">
+                    Safe and secure payment processing with trusted payment gateways for your peace of mind
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How It Works Section */}
+            <div className="mt-16 sm:mt-20 md:mt-24">
+              <div className="text-center mb-10 sm:mb-12 md:mb-16 animate-slide-up">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))] mb-4">
+                  How It Works
+                </h2>
+                <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+                  Get started with premium digital art in three simple steps
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12 relative">
+                {/* Connection lines for desktop */}
+                <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--primary))] to-[hsl(var(--primary))] opacity-20" style={{ top: '4rem', left: '20%', right: '20%' }} />
+
+                <div className="relative text-center animate-slide-up" style={{ animationDelay: '100ms' }}>
+                  <div className="relative inline-flex mb-6">
+                    <div className="absolute inset-0 bg-[hsl(var(--primary))]/20 rounded-full blur-xl animate-pulse-slow" />
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-xl border-4 border-[hsl(var(--background))]">
+                      <span className="text-2xl sm:text-3xl font-bold text-white">1</span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[hsl(var(--foreground))] mb-3">Browse Collections</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed max-w-xs mx-auto">
+                    Explore our curated gallery of premium AI-generated art bundles and find the perfect collection for your project
+                  </p>
+                </div>
+
+                <div className="relative text-center animate-slide-up" style={{ animationDelay: '200ms' }}>
+                  <div className="relative inline-flex mb-6">
+                    <div className="absolute inset-0 bg-[hsl(var(--primary))]/20 rounded-full blur-xl animate-pulse-slow" style={{ animationDelay: '0.5s' }} />
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-xl border-4 border-[hsl(var(--background))]">
+                      <ShoppingCart className="w-10 h-10 sm:w-12 sm:h-12 text-white" strokeWidth={2} />
+                    </div>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[hsl(var(--foreground))] mb-3">Complete Purchase</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed max-w-xs mx-auto">
+                    Securely purchase your chosen bundle with our trusted payment gateway and receive instant confirmation
+                  </p>
+                </div>
+
+                <div className="relative text-center animate-slide-up" style={{ animationDelay: '300ms' }}>
+                  <div className="relative inline-flex mb-6">
+                    <div className="absolute inset-0 bg-[hsl(var(--primary))]/20 rounded-full blur-xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-pink-500 to-orange-600 flex items-center justify-center shadow-xl border-4 border-[hsl(var(--background))]">
+                      <Download className="w-10 h-10 sm:w-12 sm:h-12 text-white" strokeWidth={2} />
+                    </div>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[hsl(var(--foreground))] mb-3">Download & Create</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm sm:text-base leading-relaxed max-w-xs mx-auto">
+                    Get instant access to high-resolution files and start creating amazing projects with your new digital art
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Final CTA Section */}
+            <div className="mt-16 sm:mt-20 md:mt-24">
+              <div className="card-elevated p-8 sm:p-12 md:p-16 text-center relative overflow-hidden animate-slide-up">
+                <div className="absolute inset-0 gradient-primary opacity-5" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[hsl(var(--primary))]/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[hsl(var(--secondary))]/10 rounded-full blur-3xl" />
+
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--primary-light))] text-[hsl(var(--primary))] text-sm font-medium mb-6">
+                    <Star className="w-4 h-4 fill-current" />
+                    Start Your Creative Journey
+                  </div>
+
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--foreground))] mb-4 sm:mb-6">
+                    Ready to Explore More?
+                  </h2>
+
+                  <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-10">
+                    Browse our complete collection of premium digital art bundles and find the perfect assets for your next project
+                  </p>
+
+                  <Link
+                    href="/browse-collections"
+                    className="btn-primary text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 inline-flex items-center gap-3 shadow-xl hover:shadow-2xl"
+                  >
+                    View All Collections
+                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
+                  </Link>
+                </div>
+              </div>
             </div>
           </>
         )}
