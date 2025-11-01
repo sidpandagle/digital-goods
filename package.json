@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@react-email/components": "^0.5.7",
     "@react-email/render": "^1.4.0",
     "@supabase/ssr": "^0.7.0",

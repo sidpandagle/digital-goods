@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { X, Loader2, GripVertical, Upload } from 'lucide-react';
+import { X, Loader2, GripVertical, Upload, Sparkles } from 'lucide-react';
 import Modal from '@/app/components/Modal';
 
 interface Bundle {
@@ -43,6 +43,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [autofilling, setAutofilling] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -229,6 +230,48 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
     }
   };
 
+  const handleAutofill = async () => {
+    if (!formData.title.trim()) {
+      alert('Please enter a title first');
+      return;
+    }
+
+    setAutofilling(true);
+    try {
+      const response = await fetch('/api/autofill-bundle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: formData.title }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to autofill');
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        setFormData({
+          ...formData,
+          description: result.data.description,
+          price: result.data.price,
+          image_count: result.data.image_count,
+          category: result.data.category,
+        });
+      } else {
+        throw new Error('Invalid response from autofill API');
+      }
+    } catch (error: any) {
+      console.error('Error autofilling:', error);
+      alert('Failed to autofill: ' + error.message);
+    } finally {
+      setAutofilling(false);
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -238,18 +281,41 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+          <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-[hsl(var(--foreground))] mb-1.5">
               Title *
             </label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
-              required
-              disabled={submitting}
-            />
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                className="flex-1 px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
+                required
+                disabled={submitting || autofilling}
+              />
+              <button
+                type="button"
+                onClick={handleAutofill}
+                disabled={submitting || autofilling || !formData.title.trim()}
+                className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-200 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2 whitespace-nowrap"
+              >
+                {autofilling ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    AI Filling...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    AI Autofill
+                  </>
+                )}
+              </button>
+            </div>
+            <p className="mt-1.5 text-xs text-[hsl(var(--muted-foreground))]">
+              Enter a title and click AI Autofill to automatically generate description, price, image count, and category
+            </p>
           </div>
 
           <div>
@@ -260,7 +326,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
-              disabled={submitting}
+              disabled={submitting || autofilling}
             >
               <option value="">Select a category</option>
               {CATEGORIES.map((category) => (
@@ -282,7 +348,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
               className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
               required
-              disabled={submitting}
+              disabled={submitting || autofilling}
             />
           </div>
 
@@ -296,7 +362,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
               onChange={(e) => setFormData({ ...formData, image_count: e.target.value })}
               className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
               required
-              disabled={submitting}
+              disabled={submitting || autofilling}
             />
           </div>
         </div>
@@ -310,7 +376,7 @@ export default function BundleFormModal({ isOpen, onClose, bundle, onSuccess }: 
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={8}
             className="w-full px-3 py-2 border-2 border-[hsl(var(--border))] bg-[hsl(var(--surface))] text-[hsl(var(--foreground))] rounded-lg focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))] transition-all text-sm"
-            disabled={submitting}
+            disabled={submitting || autofilling}
           />
         </div>
 
