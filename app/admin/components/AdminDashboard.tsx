@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { UserProfile } from '@/lib/auth/utils';
 import BundleManager from './BundleManager';
+import PurchasesManager from './PurchasesManager';
 import Link from 'next/link';
-import { ShieldCheck, Package, BarChart3, LogOut } from 'lucide-react';
+import { ShieldCheck, Package, BarChart3, LogOut, ShoppingCart } from 'lucide-react';
 import ThemeToggle from '@/app/components/ThemeToggle';
 
 interface AdminDashboardProps {
@@ -14,7 +15,7 @@ interface AdminDashboardProps {
 }
 
 export default function AdminDashboard({ profile }: AdminDashboardProps) {
-  const [activeTab, setActiveTab] = useState<'bundles' | 'analytics'>('bundles');
+  const [activeTab, setActiveTab] = useState<'bundles' | 'purchases' | 'analytics'>('bundles');
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -82,6 +83,19 @@ export default function AdminDashboard({ profile }: AdminDashboardProps) {
             </span>
           </button>
           <button
+            onClick={() => setActiveTab('purchases')}
+            className={`px-4 py-2 text-sm rounded-lg font-semibold transition-all ${
+              activeTab === 'purchases'
+                ? 'bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-white shadow-md'
+                : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]'
+            }`}
+          >
+            <span className="flex items-center gap-1.5">
+              <ShoppingCart className="w-4 h-4" strokeWidth={2} />
+              Purchases
+            </span>
+          </button>
+          <button
             onClick={() => setActiveTab('analytics')}
             className={`px-4 py-2 text-sm rounded-lg font-semibold transition-all ${
               activeTab === 'analytics'
@@ -101,6 +115,8 @@ export default function AdminDashboard({ profile }: AdminDashboardProps) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 relative z-10">
         {activeTab === 'bundles' ? (
           <BundleManager />
+        ) : activeTab === 'purchases' ? (
+          <PurchasesManager />
         ) : (
           <div className="bg-[hsl(var(--card))] rounded-xl shadow-lg p-6 border border-[hsl(var(--border))]">
             <h2 className="text-xl font-bold text-[hsl(var(--foreground))] mb-3">Analytics Coming Soon</h2>
